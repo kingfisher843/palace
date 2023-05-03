@@ -1,14 +1,17 @@
 <?php
 session_start();
-
+if (isset($_SESSION["status"]) && $_SESSION["status"] === true) {
+  header('Location: palace.php');
+  exit();
+}
 ?>
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <title>Palace</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylesheet.css">
  </head>
   <body>
     <h1>Welcome to the palace!</h1>
@@ -21,15 +24,15 @@ session_start();
         <input name="password" type="password" minlength="8" required><br/>
         <input name="submit" type="submit" value = "Log in"><br/>
       </form>
-
-        <?php
-        if(isset($_SESSION["login_error"]){
-          echo $_SESSION["login_error"];
-        }
-        ?>
+<?php
+if(isset($_SESSION["login_error"])){
+  echo $_SESSION["login_error"];
+}
+?>
 
       <form action="sign_up.php" method="post">
-        <br/> Don't have an account already? No worries!
+        <br/><br/><br/><br/>
+        Don't have an account already? No worries!
         <br/>
         <input type="submit" value="Sign up now!">
   </body>
