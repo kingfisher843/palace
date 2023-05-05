@@ -20,8 +20,8 @@ echo "Error " . $connection->connect_errno;
   $username = $_POST["username"];
   $password = $_POST["password"];
 
-  $username = htmlentities($username,ENT_QUOTES,"UTF-8");
-  $password = htmlentities($password,ENT_QUOTES,"UTF-8");
+  //$username = htmlentities($username,ENT_QUOTES,"UTF-8");
+  //$password = htmlentities($password,ENT_QUOTES,"UTF-8");
 
 
 
@@ -29,8 +29,9 @@ echo "Error " . $connection->connect_errno;
 //check if query is valid, not if record exists;
   if ($result = @$connection->query(
     sprintf("SELECT * FROM users WHERE username ='%s' AND password ='%s'",
-     mysqli_real_escape_string($connection,$username),
+    mysqli_real_escape_string($connection,$username),
      mysqli_real_escape_string($connection,$password)))){
+
 
     $existing_users = $result->num_rows;
 //if there is existing user with provided username and password, $existing_users === 1

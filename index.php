@@ -27,6 +27,7 @@ if (isset($_SESSION["status"]) && $_SESSION["status"] === true) {
 <?php
 if(isset($_SESSION["login_error"])){
   echo $_SESSION["login_error"];
+  unset($_SESSION["login_error"]);
 }
 ?>
 
@@ -35,5 +36,6 @@ if(isset($_SESSION["login_error"])){
         Don't have an account already? No worries!
         <br/>
         <input type="submit" value="Sign up now!">
+      </form>
   </body>
 </html>
