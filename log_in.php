@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+//if there is no data to crunch, sending to start page
 if(!isset($_POST["username"]) || !isset($_POST["password"])){
 header("Location: index.php");
 }
@@ -20,35 +21,39 @@ echo "Error " . $connection->connect_errno;
   $username = $_POST["username"];
   $password = $_POST["password"];
 
-  //$username = htmlentities($username,ENT_QUOTES,"UTF-8");
-  //$password = htmlentities($password,ENT_QUOTES,"UTF-8");
+  $username = htmlentities($username,ENT_QUOTES,"UTF-8");
 
-
-
-
-//check if query is valid, not if record exists;
+//making a query secure from mysql injection
   if ($result = @$connection->query(
-    sprintf("SELECT * FROM users WHERE username ='%s' AND password ='%s'",
-    mysqli_real_escape_string($connection,$username),
-     mysqli_real_escape_string($connection,$password)))){
+    sprintf("SELECT * FROM users WHERE username ='%s'",
+    mysqli_real_escape_string($connection,$username)))){
 
-
+//if there is existing user with provided username, $existing_users === 1
     $existing_users = $result->num_rows;
-//if there is existing user with provided username and password, $existing_users === 1
     if ($existing_users){
-
+      //$record is a whole record uploaded from database
       $record = $result->fetch_assoc();
-      $_SESSION["user_id"] = $record["user_id"];
-      $_SESSION["username"] = $record["username"];
-      $_SESSION["email"] = $record["email"];
-      $_SESSION["status"] = true;
-      unset($_SESSION["login_error"]);
-      header('Location: palace.php');
+      //verifying password
+      if (password_verify($password, $record["password"])){
+        $_SESSION["status"] = true;
+
+        $_SESSION["user_id"] = $record["user_id"];
+        $_SESSION["username"] = $record["username"];
+        $_SESSION["coins"] = $record["coins"];
+        $_SESSION["email"] = $record["email"];
+        $_SESSION["date_of_birth"] = $record["date_of_birth"];
+
+        unset($_SESSION["login_error"]);
+        header('Location: palace.php');
 //closing the result to save little kittens
       $result->close();
-
+    } else {
+      $_SESSION["login_error"] = '<span id=error>Wrong password!</span>';
+      header('Location: index.php');
+    }
     } else {
       $_SESSION["login_error"] = '<span id=error>Wrong login or password!</span>';
+      header('Location: index.php');$_SESSION["login_error"] = '<span id=error>Wrong login or password!</span>';
       header('Location: index.php');
     }
 

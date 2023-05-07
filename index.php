@@ -4,6 +4,7 @@ if (isset($_SESSION["status"]) && $_SESSION["status"] === true) {
   header('Location: palace.php');
   exit();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +20,7 @@ if (isset($_SESSION["status"]) && $_SESSION["status"] === true) {
       Sign in!
       <form id="log_in" action="log_in.php" method="post" >
         <sup class="asterisk">*</sup> Login: <br/>
-        <input name="username" type="text" minlength="5" required><br/>
+        <input name="username" type="text" minlength="5" autocomplete="on" required><br/>
         <sup class="asterisk">*</sup> Password:<br/>
         <input name="password" type="password" minlength="8" required><br/>
         <input name="submit" type="submit" value = "Log in"><br/>

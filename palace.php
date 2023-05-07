@@ -17,9 +17,12 @@ if ($_SESSION['status'] != true || !isset($_SESSION["status"])){
 <body>
   <p>Hello,<?php echo $_SESSION["username"];?>!<br/>
 You are successfully logged into your account!<br/>
-Your e-mail: <?=$_SESSION["email"]?>
-
+Your e-mail: <?=$_SESSION["email"]?><br/>
+Your amount of gold: <?=$_SESSION["coins"];?><br/>
 <button id="logout_button"><a href="logout.php">LOG OUT</a></button>
+
+
+
 </body
 
 
