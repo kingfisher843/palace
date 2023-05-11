@@ -1,12 +1,11 @@
 
 * {
-  font-family: "Palatino Linotype";
+  font-family: "Times New Roman";
 }
 
 input {
   padding: 8px;
   margin: 5px;
-
 }
 
 .asterisk {
@@ -16,7 +15,7 @@ input {
 
 #error {
   color:red;
-  margin-top: 13px;
+  margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 10px;
+  font-size: 13px;
 }
