@@ -1,9 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION["status"]) && $_SESSION["status"] === true) {
-  header('Location: palace.php');
-  exit();
-} elseif (!isset($_SESSION["registration"]){
+if (!isset($_SESSION["registration"]){
   header('Location: index.php');
 } else {
   unset($_SESSION["registration"]);
@@ -21,9 +18,9 @@ if (isset($_SESSION["status"]) && $_SESSION["status"] === true) {
   <body>
 
 
-    WELCOME TO THE PALACE! YOU ARE HERE FIRST TIME, BUT CERTAINLY NOT LAST!
+    <h1>WELCOME TO THE PALACE! YOU ARE HERE FIRST TIME, BUT CERTAINLY NOT LAST!</h1>
 
-    <br> <a href="index.php">Log in!</a>
+    <br> <a href="index.php">Log in for the first time!</a>
 
 
   </body>

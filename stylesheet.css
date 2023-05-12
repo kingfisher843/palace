@@ -19,3 +19,8 @@ input {
   margin-bottom: 10px;
   font-size: 13px;
 }
+
+#b-day {
+  color: teal;
+  font-size: 20px;
+}

@@ -53,8 +53,12 @@ session_start();
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
     //DATE OF BIRTH
-    $birthDate = $_POST["birthdate"]
-
+    $birthDate = $_POST["birthdate"];
+    if(!validateDate($birthDate)){
+      $_SESSION["e_date"] = "<span id='error'> Don't know how you managed to get incorrect data format. Try again! </span><br/>";
+    } elseif (birthDateToAge($birthDate) < 4 || birthDateToAge($birthDate) > 200) {
+      $_SESSION["e_date"] = "<span id='error'> It seems to be very clear you wasn't really born then! </span><br/>";
+    }
     //CHECKBOX - TERMS & CONDITIONS
     if(!(isset($_POST["terms"]))){
     $valid = false;
@@ -112,6 +116,7 @@ session_start();
             if($new_user = $connection->query("INSERT INTO users VALUES (NULL,'$username','$password_hash',200,'$email','$birthDate')")){
               $_SESSION["registration"] = true;
               header("Location: welcome_page.php");
+
             } else {
               throw new \Exception($connection->error);
 
@@ -147,6 +152,15 @@ $diff = date_diff(date_create($birthDate), date_create($today));
 return $diff->format('%y');
 }
 
+/**
+* @param string $date
+* optional @param string $format
+*/
+//note that this function is not made by me, but it's simple and works as planned.
+function validateDate($date, $format = 'Y-m-d'){
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) === $date;
+}
 ?>
 
 
@@ -192,7 +206,12 @@ if(isset($_SESSION["e_password"])){
 ?>
 Date of birth:<br>
 <input name="birthdate" type="date" placeholder="dd-mm-yyyy" min="1907-03-04" ><br>
-
+<?php
+if(isset($_SESSION["e_date"])){
+  echo $_SESSION["e_date"];
+  unset($_SESSION["e_date"]);
+}
+?>
 <label>
   <input name="terms" type="checkbox">
 I have read the terms and conditions of <a href='https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUXbmV2ZXIgZ29ubmEgZ2l2ZSB5b3UgdXA%3D' target='_blank'>Palace</a>
