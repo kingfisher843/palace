@@ -39,7 +39,6 @@ Your e-mail: <?=$_SESSION["email"]?><br/>
 Your amount of gold: <?=$_SESSION["coins"];?><br/>
 <button id="logout_button"><a href="logout.php">LOG OUT</a></button>
 
-You were born <?=$_SESSION["date_of_birth"];?>
 <?php
 echo $_SESSION["b-day"];
 unset($_SESSION["b-day"]);
